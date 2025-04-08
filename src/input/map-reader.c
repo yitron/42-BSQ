@@ -6,35 +6,24 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:43:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 01:12:32 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/08 09:23:10 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * this file contains the implementation of the map reader functions.
- * it reads the map from a file and stores it in a 2D array.
- * it also checks for errors in the map format and contents.
- * the map is stored in a 2D array of characters, where each character
- * represents a tile in the map.
- * the map is read from a file specified by the user.
- * the file must be in the correct format, with the correct number of
- * rows and columns.
- * the map must also be surrounded by walls, and the player must be
- * represented by a valid character.
- * the map must also contain at least one exit and one collectible.
- * the map must also be rectangular, with no empty lines or spaces.
- * the map must also be valid, with no invalid characters or
- * out-of-bounds coordinates.
- * the map must also be closed, with no open edges or gaps.
- * the map must also be complete, with no missing tiles or
- * incomplete rows or columns.
- * the map must also be correct, with no incorrect tiles or
- * incorrect coordinates.
+ * This file implements map reader functions to read and validate a map
+ * from a file. The map is stored as a 2D character array, where each
+ * character represents a tile. The file must meet the following criteria:
+ * - Correct format with specified rows and columns.
+ * - Surrounded by walls with valid player, exit, and collectible tiles.
+ * - Rectangular with no empty lines or spaces.
+ * - Contains no invalid characters or out-of-bounds coordinates.
+ * - Fully enclosed with no open edges or gaps.
  */
 
-#include <fcntl.h>	// For open
-#include <unistd.h> // For read and close
-#include <stdlib.h> // For malloc and free
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include "../utils/string_utils.h"
 
 #define BUF_SIZE 1024
