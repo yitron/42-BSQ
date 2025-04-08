@@ -6,19 +6,21 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 20:25:52 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 03:43:16 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "map-parser.h"
+#include "../utils/map_utils.h"
 #include "../utils/string_utils.h"
 
 // get map infor from the first line of the map
 // the first line of the map should be in the format:
 // <number_of_lines><empty_char><obstacle_char><player_char>
 // then move the pointer to the next line
-t_map_info	*init_map_info(char *map_file_content, int *next_line_index)
+t_map_info	*init_map_info(char *input_content, int *next_line_index)
 {
 	t_map_info	*map_info;
 	size_t		i;
@@ -28,86 +30,78 @@ t_map_info	*init_map_info(char *map_file_content, int *next_line_index)
 		return (NULL);
 	i = 0;
 	map_info->lines = 0;
-	while (map_file_content[i] && map_file_content[i] >= '0' && map_file_content[i] <= '9')
+	while (input_content[i] && is_digit(input_content[i]))
+		map_info->lines = map_info->lines * 10 + (input_content[i++] - '0');
+	if (i == 0 ||  map_info->lines == 0 || !is_valid_map_char(input_content[i]))
 	{
-		map_info->lines = map_info->lines * 10 + (map_file_content[i] - '0');
-		i++;
+		free(map_info);
+		return (NULL);
 	}
-	if (map_file_content[i])
-		map_info->empty_char = map_file_content[i++];
-	if (map_file_content[i])
-		map_info->obstacle_char = map_file_content[i++];
-	if (map_file_content[i])
-		map_info->player_char = map_file_content[i++];
-	// move the pointer to the next line
-	while (map_file_content[i] && map_file_content[i] != '\n')
+	if (input_content[i] && is_valid_map_char(input_content[i]))
+		map_info->empty_char = input_content[i++];
+	if (input_content[i] && is_valid_map_char(input_content[i]))
+		map_info->obstacle_char = input_content[i++];
+	if (input_content[i] && is_valid_map_char(input_content[i]))
+		map_info->player_char = input_content[i++];
+	while (input_content[i] && input_content[i] != '\n')
 		i++;
+	i++;
 	*next_line_index = i;
+	map_info->width = 0;
+	while (input_content[i] && (input_content[i++] != '\n'))
+		map_info->width++;
 	return (map_info);
 }
 
-size_t	count_lines(char *str)
-{
-	size_t	lines;
-	size_t	i;
-
-	lines = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			lines++;
-		i++;
-	}
-	if (str[i - 1] != '\n')
-		lines++;
-	return (lines);
-}
-
-char	*copy_line(char *start, size_t length)
+char	*copy_line(char *start, t_map_info map_info)
 {
 	char	*line;
 	size_t	i;
 
-	line = malloc(sizeof(char) * (length + 1));
+	line = malloc(sizeof(char) * (map_info.width + 1));
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (i < length)
+	while (i < map_info.width)
 	{
+		if (start[i] != map_info.empty_char && start[i] != map_info.obstacle_char)
+		{
+			free(line);
+			return (NULL);
+		}
 		line[i] = start[i];
 		i++;
+	}
+	if (i < map_info.width || start[i] != '\n')
+	{
+		free(line);
+		return (NULL);
 	}
 	line[i] = '\0';
 	return (line);
 }
 
-char	**split_lines(char *str, int from, int line_count)
+char	**parse_map(char *str, int from, t_map_info map_info)
 {
-	size_t	lines;
 	size_t	i;
+	size_t	len;
 	char	**map;
 	char	*start;
-	size_t	len;
 
-	lines = count_lines(str);
-	map = (char **)malloc(sizeof(char *) * (lines + 1));
+	map = (char **)malloc(sizeof(char *) * (map_info.lines + 1));
 	if (!map)
 		return (NULL);
 	i = 0;
 	start = str + from;
-	while (i < line_count)
+	while (i < map_info.lines)
 	{
-		len = 0;
-		while (start[len] && start[len] != '\n')
-			len++;
-		map[i] = copy_line(start, len);
+		map[i] = copy_line(start, map_info);
 		if (!map[i])
 		{
 			free(map);
 			return (NULL);
 		}
-		start += len;
+		start += map_info.width;
 		if (start[0] == '\n')
 			start++;
 		i++;

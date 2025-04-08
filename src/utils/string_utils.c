@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 11:43:42 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 09:54:55 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:02:32 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void ft_put_nbr(int n)
+void	ft_put_nbr(int n)
 {
-	char c;
+	char	c;
+
 	if (n == -2147483648)
 	{
 		write(1, "-2147483648", 11);
-		return;
+		return ;
 	}
 	if (n < 0)
 	{

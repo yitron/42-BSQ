@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map-parser.h                                       :+:      :+:    :+:   */
+/*   map_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 01:06:33 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 03:42:54 by huvu             ###   ########.fr       */
+/*   Created: 2025/04/09 02:49:38 by huvu              #+#    #+#             */
+/*   Updated: 2025/04/09 04:01:39 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_PARSER_H
-#define MAP_PARSER_H
-#include <stdlib.h>
-#include "../bsq/map.h"
+#ifndef MAP_UTILS_H
+# define MAP_UTILS_H
+# include "../bsq/bsq.h"
 
-t_map_info	*init_map_info(char *map_file_content, int *next_line_index);
-char	*copy_line(char *start, t_map_info map_info);
-char	**parse_map(char *str, int from, t_map_info map_info);
-void	free_map(char **map);
-int		is_map_valid(char **map);
+int	is_valid_map_char(char c);
+int	is_valid_map_info(t_map_info *map_info);
+int	is_digit(char c);
 
 #endif
