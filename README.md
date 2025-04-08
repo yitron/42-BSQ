@@ -8,12 +8,12 @@ BSQ Maximum Sq
 - [x] Parse map into a matrix
 - [x] Find max square from map, return its coordinator and size
 - [x] Draw the square with the "full" character.
+- [x] Handle multiple map files
+- [x] Validate map files
+- [x] Read a single map from stdin when no file is provided
+- [x] Create makefile
 - [ ] Refactor code breaking down to smaller functions
 - [ ] Polish formatting for norminette
-- [ ] Handle multiple map files
-- [ ] Validate map files
-- [ ] Read a single map from stdin when no file is provided
-- [x] Create makefile
 - [ ] Scan code with valgrind to check for memory leaks
 
 # Usage
