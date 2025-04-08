@@ -6,7 +6,7 @@
 #    By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 01:17:13 by huvu              #+#    #+#              #
-#    Updated: 2025/04/08 01:20:55 by huvu             ###   ########.fr        #
+#    Updated: 2025/04/09 00:50:25 by huvu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,5 +39,6 @@ clean:
 # Remove object files + executable
 fclean: clean
 	rm -f $(NAME)
-
+re: fclean all
+	@echo "Rebuild done"
 .PHONY: all clean fclean%
