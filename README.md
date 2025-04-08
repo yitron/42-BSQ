@@ -16,14 +16,18 @@ BSQ Maximum Sq
 - [x] Create makefile
 - [ ] Scan code with valgrind to check for memory leaks
 
-# How to run
-1. Compile the code
+# Usage
+### Compile the code
 ```sh
 make
 ```
 This will generate a executable file named `BSQ`
 
-2. Run the test
+### Run
 ```sh
-./BSQ <path_to_the_map_file>
+./BSQ <path_to_the_map_files>
+```
+### Example
+```sh
+./BSQ map/10x10_1.map map/10x10_10.map
 ```
