@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map-parser.h                                       :+:      :+:    :+:   */
+/*   stdin_reader.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 01:06:33 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 03:42:54 by huvu             ###   ########.fr       */
+/*   Created: 2025/04/09 02:08:34 by huvu              #+#    #+#             */
+/*   Updated: 2025/04/09 02:09:11 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_PARSER_H
-#define MAP_PARSER_H
-#include <stdlib.h>
-#include "../bsq/map.h"
+#ifndef STDIN_READER_H
+# define STDIN_READER_H
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "../bsq/bsq.h"
 
-t_map_info	*init_map_info(char *map_file_content, int *next_line_index);
-char	*copy_line(char *start, t_map_info map_info);
-char	**parse_map(char *str, int from, t_map_info map_info);
-void	free_map(char **map);
-int		is_map_valid(char **map);
+# define BUF_SIZE 1024
+# define MAX_INPUT_SIZE 100000
+
+int read_stdin_into_buffer(char *buffer);
 
 #endif
