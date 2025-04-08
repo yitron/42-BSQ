@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:18:31 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:28:11 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // the first line of the map should be in the format:
 // <number_of_lines><empty_char><obstacle><player>
 // then move the pointer to the next line
-t_map_info	*init_map_info(char *input_content, int *next_line_index)
+t_map_info	*init_map_info(char *buff, int *next_line_index)
 {
 	t_map_info	*map_info;
 	size_t		i;
@@ -30,26 +30,22 @@ t_map_info	*init_map_info(char *input_content, int *next_line_index)
 		return (NULL);
 	i = 0;
 	map_info->lines = 0;
-	while (input_content[i] && is_digit(input_content[i]))
-		map_info->lines = map_info->lines * 10 + (input_content[i++] - '0');
-	if (i == 0 || map_info->lines == 0 || !is_valid_map_char(input_content[i]))
+	while (buff[i] && is_digit(buff[i]))
+		map_info->lines = map_info->lines * 10 + (buff[i++] - '0');
+	if (i == 0 || map_info->lines == 0 || !is_valid_map_char(buff[i]))
 	{
 		free(map_info);
 		return (NULL);
 	}
-	if (input_content[i] && is_valid_map_char(input_content[i]))
-		map_info->empty_char = input_content[i++];
-	if (input_content[i] && is_valid_map_char(input_content[i]))
-		map_info->obstacle = input_content[i++];
-	if (input_content[i] && is_valid_map_char(input_content[i]))
-		map_info->player = input_content[i++];
-	while (input_content[i] && input_content[i] != '\n')
-		i++;
-	i++;
+	if (buff[i] && is_valid_map_char(buff[i]))
+		map_info->empty_char = buff[i++];
+	if (buff[i] && is_valid_map_char(buff[i]))
+		map_info->obstacle = buff[i++];
+	if (buff[i] && is_valid_map_char(buff[i]))
+		map_info->player = buff[i++];
+	skip_to_next_line(buff, &i);
 	*next_line_index = i;
-	map_info->width = 0;
-	while (input_content[i] && (input_content[i++] != '\n'))
-		map_info->width++;
+	map_info->width = calculate_map_width(buff, i);
 	return (map_info);
 }
 
@@ -118,31 +114,4 @@ void	free_map(char **map)
 	while (map[i])
 		free(map[i++]);
 	free(map);
-}
-
-int	is_map_valid(char **map)
-{
-	size_t	i;
-	size_t	j;
-	size_t	line_length;
-	size_t	expected_length;
-
-	if (!map || !map[0])
-		return (0);
-	i = 0;
-	expected_length = ft_strlen(map[0]);
-	while (map[i])
-	{
-		line_length = ft_strlen(map[i]);
-		if (line_length != expected_length)
-			return (0);
-		while (j < line_length)
-		{
-			if (map[i][j] != '.' && map[i][j] != 'o')
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
 }

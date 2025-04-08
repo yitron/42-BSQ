@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 02:49:38 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:01:39 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:29:06 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define MAP_UTILS_H
 # include "../bsq/bsq.h"
 
-int	is_valid_map_char(char c);
-int	is_valid_map_info(t_map_info *map_info);
-int	is_digit(char c);
+int		is_valid_map_char(char c);
+int		is_valid_map_info(t_map_info *map_info);
+int		is_digit(char c);
+void	skip_to_next_line(char *buff, size_t *index);
+size_t	calculate_map_width(char *buff, size_t index);
 
 #endif

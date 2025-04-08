@@ -6,25 +6,11 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 11:43:42 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:02:32 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:32:18 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (s1[i] - s2[i]);
-}
 
 void	ft_put_nbr(int n)
 {
@@ -63,23 +49,6 @@ void	ft_putstr(char *str)
 	}
 }
 
-void	ft_strcat(char *dest, char *src)
-{
-	int		i;
-	char	*ptr;
-
-	ptr = dest;
-	while (*ptr)
-		ptr++;
-	i = 0;
-	while (src[i])
-	{
-		*ptr = src[i];
-		ptr++;
-		i++;
-	}
-}
-
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -90,15 +59,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_strcpy(char *dest, char *src)
+int	is_digit(char c)
 {
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
+	return (c >= '0' && c <= '9');
 }

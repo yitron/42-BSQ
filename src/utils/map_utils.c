@@ -6,10 +6,11 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 02:48:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:13:47 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:47:37 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "map_utils.h"
 #include "string_utils.h"
 
@@ -59,7 +60,23 @@ int	is_valid_map_info(t_map_info *map_info)
 	return (1);
 }
 
-int	is_digit(char c)
+void	skip_to_next_line(char *buff, size_t *index)
 {
-	return (c >= '0' && c <= '9');
+	while (buff[*index] && buff[*index] != '\n')
+		(*index)++;
+	if (buff[*index] == '\n')
+		(*index)++;
+}
+
+size_t	calculate_map_width(char *buff, size_t index)
+{
+	size_t	width;
+
+	width = 0;
+	while (buff[index] && buff[index] != '\n')
+	{
+		width++;
+		index++;
+	}
+	return (width);
 }
