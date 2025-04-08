@@ -6,10 +6,11 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 18:14:17 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/08 22:48:41 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "bsq/bsq.h"
 #include "input/map-parser.h"
 #include "input/map-reader.h"
 #include "utils/string_utils.h"
@@ -54,17 +55,25 @@ int	main(int argc, char **argv)
 	ft_put_char(map_info->player_char);
 	ft_putstr("\n\n");
 	parsed_map = split_lines(file_content, next_line_index + 1, map_info->lines);
+	
 	if (!parsed_map)
 	{
 		ft_putstr("Map error\n");
 		free(file_content);
 		return (1);
 	}
-	int i = 0;
-	while (parsed_map[i])
-	{	ft_putstr(parsed_map[i++]);
-		ft_put_char('\n');
-	}
+	map_info->width = ft_strlen(parsed_map[0]);
+	t_point *point = malloc(sizeof(t_point));
+	int max = find_maximal_square(parsed_map, point, *map_info);
+
+	ft_putstr("Max size found = ");
+	ft_put_nbr(max);
+	ft_putstr("\nAt x=");
+	ft_put_nbr(point->x);
+	ft_putstr("\nAt y=");
+	ft_put_nbr(point->y);
+	ft_putstr("Results: \n");
+	draw_square_on_map(parsed_map, *point, max, *map_info);
 	free(file_content);
 	return (0);
 }
