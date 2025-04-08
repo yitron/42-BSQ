@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 22:48:41 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 00:19:11 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	ft_putstr("\nAt y=");
 	ft_put_nbr(point->y);
 	ft_putstr("Results: \n");
-	draw_square_on_map(parsed_map, *point, max, *map_info);
+	draw_square(parsed_map, *point, max, *map_info);
 	free(file_content);
 	return (0);
 }
