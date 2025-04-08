@@ -25,9 +25,9 @@ This will generate a executable file named `BSQ`
 
 ### Run
 ```sh
-./BSQ <path_to_the_map_files>
+./bsq <path_to_the_map_files>
 ```
 ### Example
 ```sh
-./BSQ map/10x10_1.map map/10x10_10.map
+./bsq map/10x10_1.map map/10x10_10.map
 ```

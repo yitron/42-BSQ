@@ -6,7 +6,7 @@
 #    By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 01:17:13 by huvu              #+#    #+#              #
-#    Updated: 2025/04/09 01:19:24 by huvu             ###   ########.fr        #
+#    Updated: 2025/04/09 04:08:28 by huvu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 CFlags= -Wall -Wextra -Werror
 
 # Files
-NAME = BSQ
+NAME = bsq
 SRC_DIR = src
 SRC = $(SRC_DIR)/main.c \
 	$(wildcard $(SRC_DIR)/*/*.c)
