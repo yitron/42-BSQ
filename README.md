@@ -13,3 +13,15 @@ BSQ Maximum Sq
 - [ ] Handle multiple map files
 - [ ] Validate map files
 - [x] Create makefile
+- [ ] Scan code with valgrind
+
+# How to run
+1. Compile the code
+```sh
+make
+```
+This will generate a executable file named `BSQ`
+2. Run the test
+```sh
+./BSQ <path_to_the_map_file>
+```
