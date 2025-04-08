@@ -12,8 +12,9 @@ BSQ Maximum Sq
 - [ ] Polish formatting for norminette
 - [ ] Handle multiple map files
 - [ ] Validate map files
+- [ ] Read a single map from stdin when no file is provided
 - [x] Create makefile
-- [ ] Scan code with valgrind
+- [ ] Scan code with valgrind to check for memory leaks
 
 # How to run
 1. Compile the code
@@ -21,6 +22,7 @@ BSQ Maximum Sq
 make
 ```
 This will generate a executable file named `BSQ`
+
 2. Run the test
 ```sh
 ./BSQ <path_to_the_map_file>
