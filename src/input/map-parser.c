@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 10:03:39 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/08 18:12:22 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // the first line of the map should be in the format:
 // <number_of_lines><empty_char><obstacle_char><player_char>
 // then move the pointer to the next line
-t_map_info	*init_map_info(char *map_file_content)
+t_map_info	*init_map_info(char *map_file_content, int *next_line_index)
 {
 	t_map_info	*map_info;
 	size_t		i;
@@ -42,7 +42,7 @@ t_map_info	*init_map_info(char *map_file_content)
 	// move the pointer to the next line
 	while (map_file_content[i] && map_file_content[i] != '\n')
 		i++;
-	map_file_content += i;
+	*next_line_index = i;
 	return (map_info);
 }
 
@@ -82,7 +82,7 @@ char	*copy_line(char *start, size_t length)
 	return (line);
 }
 
-char	**split_lines(char *str)
+char	**split_lines(char *str, int from, int line_count)
 {
 	size_t	lines;
 	size_t	i;
@@ -95,8 +95,8 @@ char	**split_lines(char *str)
 	if (!map)
 		return (NULL);
 	i = 0;
-	start = str;
-	while (i < lines)
+	start = str + from;
+	while (i < line_count)
 	{
 		len = 0;
 		while (start[len] && start[len] != '\n')

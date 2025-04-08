@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:06:33 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 10:01:40 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/08 18:06:58 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ typedef struct	s_map_info
 	char	player_char;
 }	t_map_info;
 
-t_map_info	*init_map_info(char *map_file_content);
+t_map_info	*init_map_info(char *map_file_content, int *next_line_index);
 size_t	count_lines(char *str);
 char	*copy_line(char *start, size_t length);
-char	**split_lines(char *str);
+char	**split_lines(char *str, int from, int line_count);
 void	free_map(char **map);
 int		is_map_valid(char **map);
 
