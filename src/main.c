@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:18:12 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:49:34 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "input/map_reader.h"
 #include "input/stdin_reader.h"
 #include "utils/string_utils.h"
+#include "utils/map_utils.h"
 
 static int	process_file(char *file_content)
 {

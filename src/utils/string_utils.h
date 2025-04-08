@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 11:49:41 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 10:00:36 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:32:09 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-int		ft_strcmp(char *s1, char *s2);
 void	ft_put_nbr(int n);
 void	ft_put_char(char c);
 void	ft_putstr(char *str);
-void	ft_strcat(char *dest, char *src);
 int		ft_strlen(char *str);
-void	ft_strcpy(char *dest, char *src);
+int		is_digit(char c);
 
 #endif
