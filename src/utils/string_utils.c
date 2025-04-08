@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 11:43:42 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 00:07:54 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/08 09:54:55 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,30 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+void ft_put_nbr(int n)
+{
+	char c;
+	if (n == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return;
+	}
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		n = -n;
+	}
+	if (n >= 10)
+		ft_put_nbr(n / 10);
+	c = '0' + n % 10;
+	write(1, &c, 1);
+}
+
+void	ft_put_char(char c)
+{
+	write(1, &c, 1);
+}
+
 void	ft_putstr(char *str)
 {
 	int	i;
@@ -33,7 +57,7 @@ void	ft_putstr(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		write(1, &str[i], 1);
+		ft_put_char(str[i]);
 		i++;
 	}
 }

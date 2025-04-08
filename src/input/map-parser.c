@@ -6,12 +6,45 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 01:06:16 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/08 10:03:39 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <string.h>
+#include "map-parser.h"
+#include "../utils/string_utils.h"
+
+// get map infor from the first line of the map
+// the first line of the map should be in the format:
+// <number_of_lines><empty_char><obstacle_char><player_char>
+// then move the pointer to the next line
+t_map_info	*init_map_info(char *map_file_content)
+{
+	t_map_info	*map_info;
+	size_t		i;
+
+	map_info = malloc(sizeof(t_map_info));
+	if (!map_info)
+		return (NULL);
+	i = 0;
+	map_info->lines = 0;
+	while (map_file_content[i] && map_file_content[i] >= '0' && map_file_content[i] <= '9')
+	{
+		map_info->lines = map_info->lines * 10 + (map_file_content[i] - '0');
+		i++;
+	}
+	if (map_file_content[i])
+		map_info->empty_char = map_file_content[i++];
+	if (map_file_content[i])
+		map_info->obstacle_char = map_file_content[i++];
+	if (map_file_content[i])
+		map_info->player_char = map_file_content[i++];
+	// move the pointer to the next line
+	while (map_file_content[i] && map_file_content[i] != '\n')
+		i++;
+	map_file_content += i;
+	return (map_info);
+}
 
 size_t	count_lines(char *str)
 {
@@ -103,10 +136,10 @@ int	is_map_valid(char **map)
 	if (!map || !map[0])
 		return (0);
 	i = 0;
-	expected_length = strlen(map[0]);
+	expected_length = ft_strlen(map[0]);
 	while (map[i])
 	{
-		line_length = strlen(map[i]);
+		line_length = ft_strlen(map[i]);
 		if (line_length != expected_length)
 			return (0);
 		while (j < line_length)
