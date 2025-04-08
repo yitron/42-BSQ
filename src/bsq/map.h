@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:19:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:06:25 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:13:24 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ typedef struct s_map_info
 	int		lines;
 	int		width;
 	char	empty_char;
-	char	obstacle_char;
-	char	player_char;
+	char	obstacle;
+	char	player;
 }	t_map_info;
 
 typedef struct s_point

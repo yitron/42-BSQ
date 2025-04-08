@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map-parser.h                                       :+:      :+:    :+:   */
+/*   map_reader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 01:06:33 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 03:42:54 by huvu             ###   ########.fr       */
+/*   Created: 2025/04/08 01:08:26 by huvu              #+#    #+#             */
+/*   Updated: 2025/04/09 04:10:13 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_PARSER_H
-#define MAP_PARSER_H
-#include <stdlib.h>
-#include "../bsq/map.h"
+#ifndef MAP_READER_H
+# define MAP_READER_H
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include "../utils/string_utils.h"
 
-t_map_info	*init_map_info(char *map_file_content, int *next_line_index);
-char	*copy_line(char *start, t_map_info map_info);
-char	**parse_map(char *str, int from, t_map_info map_info);
-void	free_map(char **map);
-int		is_map_valid(char **map);
+size_t	get_file_size(char *filename);
+int		read_file_into_buffer(char *filename, char *buffer);
+char	*read_file_to_string(char *filename);
+void	copy_to_buffer(char *buffer, char *temp, size_t *from, ssize_t total);
 
 #endif

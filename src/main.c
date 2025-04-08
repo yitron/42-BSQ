@@ -6,29 +6,23 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:00:37 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:18:12 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq/bsq.h"
-#include "input/map-parser.h"
-#include "input/map-reader.h"
-#include "utils/string_utils.h"
-
-#include "bsq/bsq.h"
-#include "input/map-parser.h"
-#include "input/map-reader.h"
-#include "utils/string_utils.h"
+#include "input/map_parser.h"
+#include "input/map_reader.h"
 #include "input/stdin_reader.h"
-#include "utils/map_utils.h"
+#include "utils/string_utils.h"
 
-static int process_file(char *file_content)
+static int	process_file(char *file_content)
 {
-	char **parsed_map;
-	int next_line_index;
-	t_map_info *map_info;
-	t_point *point;
-	int max;
+	char		**parsed_map;
+	int			next_line_index;
+	t_map_info	*map_info;
+	t_point		*point;
+	int			max;
 
 	if (!file_content)
 		return (0);
@@ -56,10 +50,10 @@ static int process_file(char *file_content)
 	return (0);
 }
 
-static void process_files(int argc, char **argv)
+static void	process_files(int argc, char **argv)
 {
-	char *file_content;
-	int i;
+	char	*file_content;
+	int		i;
 
 	if (argc == 1)
 	{
@@ -67,15 +61,15 @@ static void process_files(int argc, char **argv)
 		if (!file_content)
 		{
 			ft_putstr("Memory allocation error\n");
-			return;
+			return ;
 		}
-		if (read_stdin_into_buffer(file_content) == 0 || file_content[0] == '\0')
+		if (read_stdin_into_buffer(file_content) == 0)
 		{
 			ft_putstr("map error\n");
 			free(file_content);
-			return;
+			return ;
 		}
-		if (process_file(file_content) != 0)
+		if (file_content[0] == '\0' || process_file(file_content) != 0)
 		{
 			ft_putstr("map error\n");
 		}
@@ -95,7 +89,7 @@ static void process_files(int argc, char **argv)
 	}
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	process_files(argc, argv);
 	return (0);

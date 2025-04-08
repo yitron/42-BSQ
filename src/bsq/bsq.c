@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:15:24 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 01:13:10 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:13:20 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	draw_square(char **map, t_point found, int size, t_map_info map_info)
 		while (j < map_info.width)
 		{
 			if (in_square(found, size, (t_point){i, j}))
-				ft_put_char(map_info.player_char);
+				ft_put_char(map_info.player);
 			else
 				ft_put_char(map[i][j]);
 			j++;

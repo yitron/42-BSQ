@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 02:48:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:03:28 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:13:47 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	print_map_info(t_map_info *map_info)
 	ft_putstr("\nEmpty char: ");
 	ft_put_char(map_info->empty_char);
 	ft_putstr("\nObstacle char: ");
-	ft_put_char(map_info->obstacle_char);
+	ft_put_char(map_info->obstacle);
 	ft_putstr("\nPlayer char: ");
-	ft_put_char(map_info->player_char);
+	ft_put_char(map_info->player);
 	ft_putstr("\n");
 }
 
@@ -46,15 +46,15 @@ int	is_valid_map_info(t_map_info *map_info)
 		return (0);
 	if (is_valid_map_char(map_info->empty_char) == 0)
 		return (0);
-	if (is_valid_map_char(map_info->obstacle_char) == 0)
+	if (is_valid_map_char(map_info->obstacle) == 0)
 		return (0);
-	if (is_valid_map_char(map_info->player_char) == 0)
+	if (is_valid_map_char(map_info->player) == 0)
 		return (0);
-	if (map_info->empty_char == map_info->obstacle_char)
+	if (map_info->empty_char == map_info->obstacle)
 		return (0);
-	if (map_info->empty_char == map_info->player_char)
+	if (map_info->empty_char == map_info->player)
 		return (0);
-	if (map_info->obstacle_char == map_info->player_char)
+	if (map_info->obstacle == map_info->player)
 		return (0);
 	return (1);
 }
