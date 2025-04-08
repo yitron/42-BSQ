@@ -6,28 +6,18 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:15:24 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 23:05:58 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 01:13:10 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "map.h"
+#include "bsq.h"
 #include "../utils/string_utils.h"
 #include <stdio.h>
 
-static void free_map_cache(int **cache, int size)
+static int	min(int a, int b, int c)
 {
-	int i;
-
-	i = 0;
-	while (i < size)
-		free(cache[i++]);
-	free(cache);
-}
-
-static int min_of(int a, int b, int c)
-{
-	int min;
+	int	min;
 
 	min = a;
 	if (min > b)
@@ -37,86 +27,78 @@ static int min_of(int a, int b, int c)
 	return (min);
 }
 
-static int max_of(int a, int b)
+static void	set_cache_and_max(int **cache, t_point *found, int *max, t_point p)
 {
-	if (a > b)
-		return (a);
-	else
-		return (b);
+	int		min_val;
+
+	min_val = min(cache[p.x][p.y + 1], cache[p.x + 1][p.y], cache[p.x][p.y]);
+	cache[p.x + 1][p.y + 1] = min_val + 1;
+	if (cache[p.x + 1][p.y + 1] > *max)
+	{
+		*max = cache[p.x + 1][p.y + 1];
+		found->x = p.x - (*max) + 1;
+		found->y = p.y - (*max) + 1;
+	}
 }
 
-int find_maximal_square(char **map, t_point *found, t_map_info map_info)
+int	find_maximal_square(char **map, t_point *found, t_map_info map_info)
 {
-	int **cache;
+	int	**cache;
 	int	max;
 	int	i;
 	int	j;
 
-	cache = malloc(sizeof(int*) * (map_info.lines + 1));
+	cache = init_map_cache(map_info.lines, map_info.width);
 	if (!cache)
-		return 0;
-	i = 0;
-	// ft_putstr("reach here\n");
-	while (i <= map_info.lines)
-	{
-		cache[i] = malloc(sizeof(int) * (map_info.width + 1));
-		if (!cache[i])
-		{
-			free_map_cache(cache, i);
-			return 0;
-		}
-		while (j <= map_info.width)
-			cache[i][j++] = 0;
-		i++;
-	}
+		return (0);
 	max = 0;
 	i = 0;
-	found->x = 0;
-	found->y = 0;
 	while (i < map_info.lines)
 	{
 		j = 0;
 		while (j < map_info.width)
 		{
-			// ft_put_char(map[i][j]);
 			if (map[i][j] == map_info.empty_char)
-			{
-				cache[i + 1][j + 1] = min_of(cache[i][j + 1], cache[i + 1][j], cache[i][j]) + 1;
-				if (cache[i + 1][j + 1] > max){
-					max = cache[i + 1][j + 1];
-					found->x = i;
-					found->y = j;
-					// printf("Found max at [%d, %d] with value=%d\n", i+1, j+1,max);
-				}
-			}
+				set_cache_and_max(cache, found, &max, (t_point){i, j});
 			j++;
 		}
 		i++;
 	}
-	return max;
+	free_map_cache(cache, i);
+	return (max);
 }
 
-void draw_square_on_map(char **map, t_point found, int size, t_map_info map_info)
+int	in_square(t_point start_point, int size, t_point current_point)
 {
-	int i = 0;
-	int j = 0;
-	printf("Drawing from [%d,%d] backward for %d steps\n", i, j, size);
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			map[found.x - i][found.y - j] = map_info.player_char;
-			j++;
-		}
-		i++;
-	}
+	if (current_point.x < start_point.x)
+		return (0);
+	if (current_point.x >= start_point.x + size)
+		return (0);
+	if (current_point.y < start_point.y)
+		return (0);
+	if (current_point.y >= start_point.y + size)
+		return (0);
+	return (1);
+}
+
+void	draw_square(char **map, t_point found, int size, t_map_info map_info)
+{
+	int	i;
+	int	j;
 
 	i = 0;
-	
 	while (i < map_info.lines)
 	{
-		ft_putstr(map[i++]);
+		j = 0;
+		while (j < map_info.width)
+		{
+			if (in_square(found, size, (t_point){i, j}))
+				ft_put_char(map_info.player_char);
+			else
+				ft_put_char(map[i][j]);
+			j++;
+		}
 		ft_put_char('\n');
+		i++;
 	}
 }
