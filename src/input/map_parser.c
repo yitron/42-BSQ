@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map-parser.c                                       :+:      :+:    :+:   */
+/*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 03:43:16 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 04:18:31 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "map-parser.h"
+#include "map_parser.h"
 #include "../utils/map_utils.h"
 #include "../utils/string_utils.h"
 
 // get map infor from the first line of the map
 // the first line of the map should be in the format:
-// <number_of_lines><empty_char><obstacle_char><player_char>
+// <number_of_lines><empty_char><obstacle><player>
 // then move the pointer to the next line
 t_map_info	*init_map_info(char *input_content, int *next_line_index)
 {
@@ -32,7 +32,7 @@ t_map_info	*init_map_info(char *input_content, int *next_line_index)
 	map_info->lines = 0;
 	while (input_content[i] && is_digit(input_content[i]))
 		map_info->lines = map_info->lines * 10 + (input_content[i++] - '0');
-	if (i == 0 ||  map_info->lines == 0 || !is_valid_map_char(input_content[i]))
+	if (i == 0 || map_info->lines == 0 || !is_valid_map_char(input_content[i]))
 	{
 		free(map_info);
 		return (NULL);
@@ -40,9 +40,9 @@ t_map_info	*init_map_info(char *input_content, int *next_line_index)
 	if (input_content[i] && is_valid_map_char(input_content[i]))
 		map_info->empty_char = input_content[i++];
 	if (input_content[i] && is_valid_map_char(input_content[i]))
-		map_info->obstacle_char = input_content[i++];
+		map_info->obstacle = input_content[i++];
 	if (input_content[i] && is_valid_map_char(input_content[i]))
-		map_info->player_char = input_content[i++];
+		map_info->player = input_content[i++];
 	while (input_content[i] && input_content[i] != '\n')
 		i++;
 	i++;
@@ -64,7 +64,7 @@ char	*copy_line(char *start, t_map_info map_info)
 	i = 0;
 	while (i < map_info.width)
 	{
-		if (start[i] != map_info.empty_char && start[i] != map_info.obstacle_char)
+		if (start[i] != map_info.empty_char && start[i] != map_info.obstacle)
 		{
 			free(line);
 			return (NULL);
