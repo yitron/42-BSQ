@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:49:34 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 10:10:18 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	process_file(char *file_content)
 	{
 		free(map_info);
 		free(file_content);
+		free_map(parsed_map, map_info->lines);
 		return (1);
 	}
 	map_info->width = ft_strlen(parsed_map[0]);
@@ -45,7 +46,7 @@ static int	process_file(char *file_content)
 	max = find_maximal_square(parsed_map, point, *map_info);
 	draw_square(parsed_map, *point, max, *map_info);
 	free(file_content);
-	free_map(parsed_map);
+	free_map(parsed_map, map_info->lines);
 	free(point);
 	free(map_info);
 	return (0);
@@ -73,6 +74,7 @@ static void	process_files(int argc, char **argv)
 		if (file_content[0] == '\0' || process_file(file_content) != 0)
 		{
 			ft_putstr("map error\n");
+			free(file_content);
 		}
 	}
 	else

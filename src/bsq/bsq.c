@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:15:24 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:13:20 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 10:10:25 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	find_maximal_square(char **map, t_point *found, t_map_info map_info)
 		}
 		i++;
 	}
-	free_map_cache(cache, i);
+	free_map_cache(cache, map_info.lines + 1);
 	return (max);
 }
 

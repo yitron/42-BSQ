@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:14:08 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:04:30 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 10:09:00 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void	free_map_cache(int **cache, int size)
 	while (i < size)
 		free(cache[i++]);
 	free(cache);
+}
+
+void	free_map(char **map, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+		free(map[i++]);
+	free(map);
 }
 
 int	**init_map_cache(int lines, int width)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map-reader.c                                       :+:      :+:    :+:   */
+/*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:43:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/08 09:50:33 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 09:50:09 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	get_file_size(char *filename)
 
 void	copy_to_buffer(char *buffer, char *temp, size_t *from, ssize_t total)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < total)
