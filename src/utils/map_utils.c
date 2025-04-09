@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 02:48:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:47:37 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 13:36:10 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,21 @@ void	print_map_info(t_map_info *map_info)
 	ft_putstr("\n");
 }
 
-int	is_valid_map_info(t_map_info *map_info)
+int	is_valid_map_info(t_map_info map_info)
 {
-	if (!map_info)
+	if (map_info.lines <= 0 || map_info.width <= 0)
 		return (0);
-	if (map_info->lines <= 0 || map_info->width <= 0)
+	if (is_valid_map_char(map_info.empty_char) == 0)
 		return (0);
-	if (is_valid_map_char(map_info->empty_char) == 0)
+	if (is_valid_map_char(map_info.obstacle) == 0)
 		return (0);
-	if (is_valid_map_char(map_info->obstacle) == 0)
+	if (is_valid_map_char(map_info.player) == 0)
 		return (0);
-	if (is_valid_map_char(map_info->player) == 0)
+	if (map_info.empty_char == map_info.obstacle)
 		return (0);
-	if (map_info->empty_char == map_info->obstacle)
+	if (map_info.empty_char == map_info.player)
 		return (0);
-	if (map_info->empty_char == map_info->player)
-		return (0);
-	if (map_info->obstacle == map_info->player)
+	if (map_info.obstacle == map_info.player)
 		return (0);
 	return (1);
 }
