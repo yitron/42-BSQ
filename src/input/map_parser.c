@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 10:36:00 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 12:33:51 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,15 @@ t_map_info	*init_map_info(char *buff)
 	map_info->lines = 0;
 	while (buff[i] && is_digit(buff[i]))
 		map_info->lines = map_info->lines * 10 + (buff[i++] - '0');
-	if (i == 0 || map_info->lines == 0 || !is_valid_map_char(buff[i]))
+	if (map_info->lines == 0 || !is_valid_map_char(buff[i])
+		|| !is_valid_map_char(buff[i + 1]) || !is_valid_map_char(buff[i + 2]))
 	{
 		free(map_info);
 		return (NULL);
 	}
-	if (buff[i] && is_valid_map_char(buff[i]))
-		map_info->empty_char = buff[i++];
-	if (buff[i] && is_valid_map_char(buff[i]))
-		map_info->obstacle = buff[i++];
-	if (buff[i] && is_valid_map_char(buff[i]))
-		map_info->player = buff[i++];
+	map_info->empty_char = buff[i++];
+	map_info->obstacle = buff[i++];
+	map_info->player = buff[i++];
 	skip_to_next_line(buff, &i);
 	map_info->first_row_index = i;
 	map_info->width = calculate_map_width(buff, i);
