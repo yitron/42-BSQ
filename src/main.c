@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 14:03:57 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 14:08:17 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static void	process_files(int argc, char **argv)
 		buff = read_file_to_string(argv[i]);
 		if (!buff || buff[0] == '\0' || !process_map(buff))
 			ft_putstr("map error\n");
+		if (i < argc - 1)
+			ft_put_char('\n');
 		free(buff);
 		i++;
 	}
