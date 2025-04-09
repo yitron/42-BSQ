@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 10:52:12 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 12:39:43 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	process_map(char *map_input)
 		free_map(parsed_map, map_info->lines);
 		return (0);
 	}
-	map_info->width = ft_strlen(parsed_map[0]);
 	point_found = malloc(sizeof(t_point));
 	max = find_maximal_square(parsed_map, point_found, *map_info);
 	draw_square(parsed_map, *point_found, max, *map_info);

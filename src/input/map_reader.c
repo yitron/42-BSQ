@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:43:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 09:50:09 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 12:38:51 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,16 @@ int	read_file_into_buffer(char *filename, char *buffer)
 	int		fd;
 	ssize_t	bytes_read;
 	size_t	offset;
-	char	temp[BUF_SIZE];
 
 	offset = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);
-	bytes_read = read(fd, temp, BUF_SIZE);
+	bytes_read = read(fd, buffer, BUF_SIZE);
 	while (bytes_read > 0)
 	{
-		copy_to_buffer(buffer, temp, &offset, bytes_read);
-		bytes_read = read(fd, temp, BUF_SIZE);
+		offset += bytes_read;
+		bytes_read = read(fd, buffer + offset, BUF_SIZE);
 	}
 	close(fd);
 	if (bytes_read == -1)
