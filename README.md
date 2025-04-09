@@ -23,12 +23,20 @@ BSQ Maximum Sq
 ```sh
 make
 ```
-This will generate a executable file named `BSQ`
+Available commands:
+- `make` - Compile the code
+- `make clean` - Remove the object files
+- `make fclean` - Remove the object files and the executable
+- `make re` - Recompile the code
+- `make norm` - Check the code with norminette
+
+Once compiled, executable file `bsq` will be generated in the current directory.
 
 ### Run
 ```sh
 ./bsq <path_to_the_map_files>
 ```
+
 ### Example
 ```sh
 ./bsq map/10x10_1.map map/10x10_10.map
