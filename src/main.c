@@ -17,7 +17,7 @@
 #include "utils/string_utils.h"
 #include "utils/map_utils.h"
 
-static int	process_map(char *map_input)
+static int	process_input_map(char *map_input)
 {
 	char		**parsed_map;
 	t_map_info	map_info;
@@ -52,7 +52,7 @@ static void	process_stdin(void)
 		return ;
 	}
 	read_ok = read_stdin_into_buffer(buff);
-	if (!read_ok || buff[0] == '\0' || !process_map(buff))
+	if (!read_ok || buff[0] == '\0' || !process_input_map(buff))
 		ft_putstr("map error\n");
 	free(buff);
 	return ;
@@ -67,7 +67,7 @@ static void	process_files(int argc, char **argv)
 	while (i < argc)
 	{
 		buff = read_file_to_string(argv[i]);
-		if (!buff || buff[0] == '\0' || !process_map(buff))
+		if (!buff || buff[0] == '\0' || !process_input_map(buff))
 			ft_putstr("map error\n");
 		if (i < argc - 1)
 			ft_put_char('\n');

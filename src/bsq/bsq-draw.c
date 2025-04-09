@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "bsq.h"
 
 int	in_square(t_point start_point, int size, t_point current_point)
