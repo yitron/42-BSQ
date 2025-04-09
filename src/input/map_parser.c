@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 10:07:45 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 10:36:00 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // the first line of the map should be in the format:
 // <number_of_lines><empty_char><obstacle><player>
 // then move the pointer to the next line
-t_map_info	*init_map_info(char *buff, int *next_line_index)
+t_map_info	*init_map_info(char *buff)
 {
 	t_map_info	*map_info;
 	size_t		i;
@@ -44,7 +44,7 @@ t_map_info	*init_map_info(char *buff, int *next_line_index)
 	if (buff[i] && is_valid_map_char(buff[i]))
 		map_info->player = buff[i++];
 	skip_to_next_line(buff, &i);
-	*next_line_index = i;
+	map_info->first_row_index = i;
 	map_info->width = calculate_map_width(buff, i);
 	return (map_info);
 }
@@ -77,7 +77,7 @@ char	*copy_line(char *start, t_map_info map_info)
 	return (line);
 }
 
-char	**parse_map(char *str, int from, t_map_info map_info)
+char	**parse_map(char *str, t_map_info map_info)
 {
 	int		i;
 	char	**map;
@@ -87,7 +87,7 @@ char	**parse_map(char *str, int from, t_map_info map_info)
 	if (!map)
 		return (NULL);
 	i = 0;
-	start = str + from;
+	start = str + map_info.first_row_index;
 	while (i < map_info.lines)
 	{
 		map[i] = copy_line(start, map_info);
