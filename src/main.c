@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 14:49:50 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 17:48:55 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ static int	process_map(char *map_input)
 		return (0);
 	parsed_map = parse_map(map_input, map_info);
 	if (!parsed_map)
-	{
-		free_map(parsed_map, map_info.lines);
 		return (0);
-	}
 	max = find_maximal_square(parsed_map, &point_found, map_info);
 	draw_square(parsed_map, point_found, max, map_info);
 	free_map(parsed_map, map_info.lines);

@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 15:49:59 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 17:50:16 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*copy_line(char *start, t_map_info map_info)
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (i < map_info.width)
+	while (start[i] != '\n' && i < map_info.width)
 	{
 		if (start[i] != map_info.empty_char && start[i] != map_info.obstacle)
 		{
