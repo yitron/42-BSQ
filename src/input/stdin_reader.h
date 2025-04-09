@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 02:08:34 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:14:21 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 15:02:17 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 # include "../bsq/bsq.h"
 
 # define BUF_SIZE 1024
-# define MAX_INPUT_SIZE 100000
 
-int	read_stdin_into_buffer(char *buffer);
+char	*read_stdin_into_buffer(void);
 
 #endif

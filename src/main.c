@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 14:08:17 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 14:49:50 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,9 @@ static int	process_map(char *map_input)
 static void	process_stdin(void)
 {
 	char	*buff;
-	int		read_ok;
 
-	buff = malloc(MAX_INPUT_SIZE);
-	if (!buff)
-	{
-		ft_putstr("map error\n");
-		return ;
-	}
-	read_ok = read_stdin_into_buffer(buff);
-	if (!read_ok || buff[0] == '\0' || !process_map(buff))
+	buff = read_stdin_into_buffer();
+	if (!buff || buff[0] == '\0' || !process_map(buff))
 		ft_putstr("map error\n");
 	free(buff);
 	return ;

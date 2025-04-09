@@ -6,13 +6,12 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 04:04:48 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 10:07:00 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 14:46:56 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BSQ_H
 # define BSQ_H
-# define MAX_INPUT_SIZE 100000
 # include "map.h"
 
 void	free_map_cache(int **cache, int size);
