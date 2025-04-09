@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 04:28:11 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 10:07:45 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_map_info	*init_map_info(char *buff, int *next_line_index)
 char	*copy_line(char *start, t_map_info map_info)
 {
 	char	*line;
-	size_t	i;
+	int		i;
 
 	line = malloc(sizeof(char) * (map_info.width + 1));
 	if (!line)
@@ -79,8 +79,7 @@ char	*copy_line(char *start, t_map_info map_info)
 
 char	**parse_map(char *str, int from, t_map_info map_info)
 {
-	size_t	i;
-	size_t	len;
+	int		i;
 	char	**map;
 	char	*start;
 
@@ -94,7 +93,7 @@ char	**parse_map(char *str, int from, t_map_info map_info)
 		map[i] = copy_line(start, map_info);
 		if (!map[i])
 		{
-			free(map);
+			free_map(map, i);
 			return (NULL);
 		}
 		start += map_info.width;
@@ -104,14 +103,4 @@ char	**parse_map(char *str, int from, t_map_info map_info)
 	}
 	map[i] = NULL;
 	return (map);
-}
-
-void	free_map(char **map)
-{
-	size_t	i;
-
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
 }
