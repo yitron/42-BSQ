@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 00:49:28 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 13:34:51 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 15:49:59 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	init_map_info(char *buff, t_map_info *map_info)
 	map_info->lines = 0;
 	while (buff[i] && is_digit(buff[i]))
 		map_info->lines = map_info->lines * 10 + (buff[i++] - '0');
-	if (map_info->lines == 0 || !is_valid_map_char(buff[i])
-		|| !is_valid_map_char(buff[i + 1]) || !is_valid_map_char(buff[i + 2]))
+	if (map_info->lines == 0 || !buff[i] || !buff[i + 1] || !buff[i + 2]
+		|| !is_valid_map_char(buff[i]) || !is_valid_map_char(buff[i + 1])
+		|| !is_valid_map_char(buff[i + 2]))
 	{
-		free(map_info);
 		return (0);
 	}
 	map_info->empty_char = buff[i++];
