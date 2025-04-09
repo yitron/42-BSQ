@@ -6,7 +6,7 @@
 #    By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 01:17:13 by huvu              #+#    #+#              #
-#    Updated: 2025/04/09 11:19:15 by huvu             ###   ########.fr        #
+#    Updated: 2025/04/09 18:15:54 by huvu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,14 @@ CFLAGS= -Wall -Wextra -Werror
 NAME = bsq
 SRC_DIR = src
 SRC = $(SRC_DIR)/main.c \
-	$(wildcard $(SRC_DIR)/*/*.c)
+	$(SRC_DIR)/bsq/bsq-mem.c \
+	$(SRC_DIR)/bsq/bsq.c \
+	$(SRC_DIR)/input/map_parser.c \
+	$(SRC_DIR)/input/map_reader.c \
+	$(SRC_DIR)/input/stdin_reader.c \
+	$(SRC_DIR)/utils/map_utils.c \
+	$(SRC_DIR)/utils/string_utils.c
+
 OBJ = $(SRC:.c=.o)
 
 # Default target
