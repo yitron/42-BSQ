@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 12:39:43 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 14:03:57 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,23 @@
 static int	process_map(char *map_input)
 {
 	char		**parsed_map;
-	t_map_info	*map_info;
-	t_point		*point_found;
+	t_map_info	map_info;
+	t_point		point_found;
 	int			max;
 
-	map_info = init_map_info(map_input);
+	if (!init_map_info(map_input, &map_info))
+		return (0);
 	if (!is_valid_map_info(map_info))
 		return (0);
-	parsed_map = parse_map(map_input, *map_info);
+	parsed_map = parse_map(map_input, map_info);
 	if (!parsed_map)
 	{
-		free(map_info);
-		free_map(parsed_map, map_info->lines);
+		free_map(parsed_map, map_info.lines);
 		return (0);
 	}
-	point_found = malloc(sizeof(t_point));
-	max = find_maximal_square(parsed_map, point_found, *map_info);
-	draw_square(parsed_map, *point_found, max, *map_info);
-	free_map(parsed_map, map_info->lines);
-	free(point_found);
-	free(map_info);
+	max = find_maximal_square(parsed_map, &point_found, map_info);
+	draw_square(parsed_map, point_found, max, map_info);
+	free_map(parsed_map, map_info.lines);
 	return (1);
 }
 
@@ -51,7 +48,7 @@ static void	process_stdin(void)
 	buff = malloc(MAX_INPUT_SIZE);
 	if (!buff)
 	{
-		ft_putstr("Memory allocation error\n");
+		ft_putstr("map error\n");
 		return ;
 	}
 	read_ok = read_stdin_into_buffer(buff);
