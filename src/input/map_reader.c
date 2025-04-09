@@ -6,20 +6,9 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:43:10 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 12:38:51 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 17:55:20 by lhongzhu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/**
- * This file implements map reader functions to read and validate a map
- * from a file. The map is stored as a 2D character array, where each
- * character represents a tile. The file must meet the following criteria:
- * - Correct format with specified rows and columns.
- * - Surrounded by walls with valid player, exit, and collectible tiles.
- * - Rectangular with no empty lines or spaces.
- * - Contains no invalid characters or out-of-bounds coordinates.
- * - Fully enclosed with no open edges or gaps.
- */
 
 #include <fcntl.h>
 #include <unistd.h>
