@@ -33,28 +33,45 @@ static void	set_cache_and_max(int **cache, t_point *found, int *max, t_point p)
 	}
 }
 
+static void	process_block(char **map, int **cache, t_point *found, 
+				int *max, t_map_info map_info, t_point block)
+{
+	t_point	p;
+	int		end_i;
+	int		end_j;
+
+	end_i = block.x + 64 < map_info.lines ? block.x + 64 : map_info.lines;
+	end_j = block.y + 64 < map_info.width ? block.y + 64 : map_info.width;
+	p.x = block.x - 1;
+	while (++p.x < end_i)
+	{
+		p.y = block.y - 1;
+		while (++p.y < end_j)
+			if (map[p.x][p.y] == map_info.empty_char)
+				set_cache_and_max(cache, found, max, p);
+	}
+}
+
 int	find_maximal_square(char **map, t_point *found, t_map_info map_info)
 {
-	int	**cache;
-	int	max;
-	int	i;
-	int	j;
+	int		**cache;
+	int		max;
+	t_point	block;
 
 	cache = init_map_cache(map_info.lines, map_info.width);
 	if (!cache)
 		return (0);
 	max = 0;
-	i = 0;
-	while (i < map_info.lines)
+	block.x = 0;
+	while (block.x < map_info.lines)
 	{
-		j = 0;
-		while (j < map_info.width)
+		block.y = 0;
+		while (block.y < map_info.width)
 		{
-			if (map[i][j] == map_info.empty_char)
-				set_cache_and_max(cache, found, &max, (t_point){i, j});
-			j++;
+			process_block(map, cache, found, &max, map_info, block);
+			block.y += 64;
 		}
-		i++;
+		block.x += 64;
 	}
 	free_map_cache(cache, map_info.lines + 1);
 	return (max);
@@ -70,29 +87,34 @@ int	in_square(t_point start_point, int size, t_point current_point)
 
 void	draw_square(char **map, t_point found, int size, t_map_info map_info)
 {
-	char	*line_buffer;
+	char	*buffer;
 	int		i;
 	int		j;
+	int		pos;
+	int		buffer_size;
 
-	line_buffer = malloc(sizeof(char) * (map_info.width + 2));
-	if (!line_buffer)
+	buffer_size = (map_info.width + 1) * map_info.lines;
+	buffer = malloc(sizeof(char) * buffer_size);
+	if (!buffer)
 		return ;
+	
+	pos = 0;
 	i = 0;
 	while (i < map_info.lines)
 	{
 		j = 0;
 		while (j < map_info.width)
 		{
-			if (in_square(found, size, (t_point){i, j}))
-				line_buffer[j] = map_info.player;
+			if (i >= found.x && i < found.x + size && j >= found.y && j < found.y + size)
+				buffer[pos++] = map_info.player;
 			else
-				line_buffer[j] = map[i][j];
+				buffer[pos++] = map[i][j];
 			j++;
 		}
-		line_buffer[j] = '\n';
-		line_buffer[j + 1] = '\0';
-		write(1, line_buffer, j + 1);
+		buffer[pos++] = '\n';
 		i++;
 	}
-	free(line_buffer);
+	
+	write(1, buffer, pos);
+	free(buffer);
 }

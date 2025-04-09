@@ -70,22 +70,41 @@ char	*copy_line(char *start, t_map_info map_info)
 char	**parse_map(char *str, t_map_info map_info)
 {
 	int		i;
+	int		j;
 	char	**map;
+	char	*data_buffer;
 	char	*start;
+	char	*dest;
 
-	map = (char **)malloc(sizeof(char *) * (map_info.lines + 1));
-	if (!map)
+	data_buffer = malloc(sizeof(char) * map_info.width * map_info.lines + map_info.lines);
+	if (!data_buffer)
 		return (NULL);
-	i = 0;
+	map = malloc(sizeof(char *) * (map_info.lines + 1));
+	if (!map)
+	{
+		free(data_buffer);
+		return (NULL);
+	}
 	start = str + map_info.first_row_index;
+	dest = data_buffer;
+	i = 0;
 	while (i < map_info.lines)
 	{
-		map[i] = copy_line(start, map_info);
-		if (!map[i])
+		map[i] = dest;
+		j = 0;
+		while (j < map_info.width)
 		{
-			free_map(map, i);
-			return (NULL);
+			if (start[j] != map_info.empty_char && start[j] != map_info.obstacle)
+			{
+				free(data_buffer);
+				free(map);
+				return (NULL);
+			}
+			dest[j] = start[j];
+			j++;
 		}
+		dest[j] = '\0';
+		dest += map_info.width + 1;
 		start += map_info.width;
 		if (start[0] == '\n')
 			start++;

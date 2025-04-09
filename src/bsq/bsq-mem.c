@@ -14,41 +14,43 @@
 
 void	free_map_cache(int **cache, int size)
 {
-	int	i;
-
-	i = 0;
-	while (i < size)
-		free(cache[i++]);
+	(void)size;
+	if (!cache)
+		return ;
+	free(cache[0]);
 	free(cache);
 }
 
 void	free_map(char **map, int size)
 {
-	int	i;
-
-	i = 0;
-	while (i < size)
-		free(map[i++]);
+	(void)size;
+	if (!map)
+		return ;
+	free(map[0]);
 	free(map);
 }
 
 int	**init_map_cache(int lines, int width)
 {
 	int	**cache;
+	int	*data;
 	int	i;
+	int	total_size;
 
+	total_size = (lines + 1) * (width + 1);
+	data = calloc(total_size, sizeof(int));
+	if (!data)
+		return (NULL);
 	cache = malloc(sizeof(int *) * (lines + 1));
 	if (!cache)
+	{
+		free(data);
 		return (NULL);
+	}
 	i = 0;
 	while (i <= lines)
 	{
-		cache[i] = malloc(sizeof(int) * (width + 1));
-		if (!cache[i])
-		{
-			free_map_cache(cache, i);
-			return (NULL);
-		}
+		cache[i] = data + (i * (width + 1));
 		i++;
 	}
 	return (cache);

@@ -1,0 +1,52 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile.test                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: Claude <noreply@anthropic.com>             +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/04/09 12:00:00 by Claude            #+#    #+#              #
+#    Updated: 2025/04/09 12:00:00 by Claude           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Compiler and Flags
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+
+# Files
+NAME = tests
+SRC = tests.c
+OBJ = $(SRC:.c=.o)
+
+# Default target
+all: $(NAME)
+
+# Link object files into executable
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+
+# Compile .c into .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Remove object files
+clean:
+	rm -f $(OBJ)
+	rm -rf test_maps
+
+# Remove object files + executable + test report
+fclean:
+	rm -f $(OBJ)
+	rm -rf test_maps
+	rm -f $(NAME)
+	rm -f TEST_REPORT.md
+
+# Run the tests
+test: $(NAME)
+	./$(NAME)
+
+re: fclean all
+	@echo "Rebuild done"
+
+.PHONY: all clean fclean re test
