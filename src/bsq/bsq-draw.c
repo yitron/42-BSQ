@@ -22,20 +22,14 @@ int	in_square(t_point start_point, int size, t_point current_point)
 		&& current_point.y < start_point.y + size);
 }
 
-void	draw_square(char **map, t_point found, int size, t_map_info map_info)
+void	fill_buffer(char **map, t_point found, int size, char *buffer,
+			t_map_info map_info, int *pos)
 {
-	char	*buffer;
-	int		buffer_size;
-	int		i;
-	int		j;
-	int		pos;
+	int	i;
+	int	j;
 
-	buffer_size = (map_info.width + 1) * map_info.lines;
-	buffer = malloc(sizeof(char) * buffer_size);
-	if (!buffer)
-		return ;
-	pos = 0;
 	i = -1;
+	*pos = 0;
 	while (++i < map_info.lines)
 	{
 		j = -1;
@@ -43,12 +37,25 @@ void	draw_square(char **map, t_point found, int size, t_map_info map_info)
 		{
 			if (i >= found.x && i < found.x + size
 				&& j >= found.y && j < found.y + size)
-				buffer[pos++] = map_info.player;
+				buffer[(*pos)++] = map_info.player;
 			else
-				buffer[pos++] = map[i][j];
+				buffer[(*pos)++] = map[i][j];
 		}
-		buffer[pos++] = '\n';
+		buffer[(*pos)++] = '\n';
 	}
+}
+
+void	draw_square(char **map, t_point found, int size, t_map_info map_info)
+{
+	char	*buffer;
+	int		buffer_size;
+	int		pos;
+
+	buffer_size = (map_info.width + 1) * map_info.lines;
+	buffer = malloc(sizeof(char) * buffer_size);
+	if (!buffer)
+		return ;
+	fill_buffer(map, found, size, buffer, map_info, &pos);
 	write(1, buffer, pos);
 	free(buffer);
 }

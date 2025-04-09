@@ -32,6 +32,8 @@ void	process_map(char **map, int **cache, t_block_args *args);
 void	scan_blocks(char **map, int **cache, t_block_args *args,
 		t_map_info *map_info);
 int		in_square(t_point start_point, int size, t_point current_point);
+void	fill_buffer(char **map, t_point found, int size, char *buffer,
+			t_map_info map_info, int *pos);
 void	draw_square(char **map, t_point found, int size, t_map_info map_info);
 void	free_map_cache(int **cache, int size);
 void	free_map(char **map, int size);
