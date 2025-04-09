@@ -6,7 +6,7 @@
 #    By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 01:17:13 by huvu              #+#    #+#              #
-#    Updated: 2025/04/09 10:13:57 by huvu             ###   ########.fr        #
+#    Updated: 2025/04/09 11:19:15 by huvu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,4 +41,8 @@ fclean: clean
 	rm -f $(NAME)
 re: fclean all
 	@echo "Rebuild done"
+
+norm:
+	@echo "Norminette, please say OK!"
+	@norminette $(SRC_DIR)/*/*.c $(SRC_DIR)/*/*.h
 .PHONY: all clean fclean%
