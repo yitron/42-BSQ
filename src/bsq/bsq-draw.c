@@ -22,8 +22,17 @@ int	in_square(t_point start_point, int size, t_point current_point)
 		&& current_point.y < start_point.y + size);
 }
 
+static char	get_char_for_position(char **map, t_point found, int size,
+				t_map_info map_info, int i, int j)
+{
+	if (i >= found.x && i < found.x + size
+		&& j >= found.y && j < found.y + size)
+		return (map_info.player);
+	return (map[i][j]);
+}
+
 void	fill_buffer(char **map, t_point found, int size, char *buffer,
-			t_map_info map_info, int *pos)
+				t_map_info map_info, int *pos)
 {
 	int	i;
 	int	j;
@@ -35,11 +44,8 @@ void	fill_buffer(char **map, t_point found, int size, char *buffer,
 		j = -1;
 		while (++j < map_info.width)
 		{
-			if (i >= found.x && i < found.x + size
-				&& j >= found.y && j < found.y + size)
-				buffer[(*pos)++] = map_info.player;
-			else
-				buffer[(*pos)++] = map[i][j];
+			buffer[(*pos)++] = get_char_for_position(map, found, size,
+							map_info, i, j);
 		}
 		buffer[(*pos)++] = '\n';
 	}
