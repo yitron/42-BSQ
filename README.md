@@ -12,9 +12,11 @@ BSQ Maximum Sq
 - [x] Validate map files
 - [x] Read a single map from stdin when no file is provided
 - [x] Create makefile
-- [ ] Refactor code breaking down to smaller functions
-- [ ] Polish formatting for norminette
-- [ ] Scan code with valgrind to check for memory leaks
+- [x] Refactor code breaking down to smaller functions
+- [x] Polish formatting for norminette
+- [ ] Scan code with valgrind to check for memory leaks (verified with `leaks` on MacOS, need to check again with Valgrind on Linux)
+- [ ] More test cases
+- [ ] Organize code to make it easy to read and maintain
 
 # Usage
 ### Compile the code
