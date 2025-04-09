@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 10:10:18 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 10:52:12 by huvu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,83 +17,72 @@
 #include "utils/string_utils.h"
 #include "utils/map_utils.h"
 
-static int	process_file(char *file_content)
+static int	process_map(char *map_input)
 {
 	char		**parsed_map;
-	int			next_line_index;
 	t_map_info	*map_info;
-	t_point		*point;
+	t_point		*point_found;
 	int			max;
 
-	if (!file_content)
+	map_info = init_map_info(map_input);
+	if (!is_valid_map_info(map_info))
 		return (0);
-	map_info = init_map_info(file_content, &next_line_index);
-	if (is_valid_map_info(map_info) == 0)
-	{
-		free(file_content);
-		return (1);
-	}
-	parsed_map = parse_map(file_content, next_line_index, *map_info);
+	parsed_map = parse_map(map_input, *map_info);
 	if (!parsed_map)
 	{
 		free(map_info);
-		free(file_content);
 		free_map(parsed_map, map_info->lines);
-		return (1);
+		return (0);
 	}
 	map_info->width = ft_strlen(parsed_map[0]);
-	point = malloc(sizeof(t_point));
-	max = find_maximal_square(parsed_map, point, *map_info);
-	draw_square(parsed_map, *point, max, *map_info);
-	free(file_content);
+	point_found = malloc(sizeof(t_point));
+	max = find_maximal_square(parsed_map, point_found, *map_info);
+	draw_square(parsed_map, *point_found, max, *map_info);
 	free_map(parsed_map, map_info->lines);
-	free(point);
+	free(point_found);
 	free(map_info);
-	return (0);
+	return (1);
+}
+
+static void	process_stdin(void)
+{
+	char	*buff;
+	int		read_ok;
+
+	buff = malloc(MAX_INPUT_SIZE);
+	if (!buff)
+	{
+		ft_putstr("Memory allocation error\n");
+		return ;
+	}
+	read_ok = read_stdin_into_buffer(buff);
+	if (!read_ok || buff[0] == '\0' || !process_map(buff))
+		ft_putstr("map error\n");
+	free(buff);
+	return ;
 }
 
 static void	process_files(int argc, char **argv)
 {
-	char	*file_content;
+	char	*buff;
 	int		i;
 
-	if (argc == 1)
+	i = 1;
+	while (i < argc)
 	{
-		file_content = malloc(MAX_INPUT_SIZE);
-		if (!file_content)
-		{
-			ft_putstr("Memory allocation error\n");
-			return ;
-		}
-		if (read_stdin_into_buffer(file_content) == 0)
-		{
+		buff = read_file_to_string(argv[i]);
+		if (!buff || buff[0] == '\0' || !process_map(buff))
 			ft_putstr("map error\n");
-			free(file_content);
-			return ;
-		}
-		if (file_content[0] == '\0' || process_file(file_content) != 0)
-		{
-			ft_putstr("map error\n");
-			free(file_content);
-		}
-	}
-	else
-	{
-		i = 1;
-		while (i < argc)
-		{
-			file_content = read_file_to_string(argv[i]);
-			if (process_file(file_content) != 0)
-			{
-				ft_putstr("map error\n");
-			}
-			i++;
-		}
+		free(buff);
+		i++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	process_files(argc, argv);
+	if (argc == 1)
+		process_stdin();
+	else
+		process_files(argc, argv);
 	return (0);
 }
