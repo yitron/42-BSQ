@@ -6,7 +6,7 @@
 /*   By: huvu <huvu@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 01:09:54 by huvu              #+#    #+#             */
-/*   Updated: 2025/04/09 14:08:17 by huvu             ###   ########.fr       */
+/*   Updated: 2025/04/09 15:50:01 by lhongzhu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,19 @@ static void	process_files(int argc, char **argv)
 		if (i < argc - 1)
 			ft_put_char('\n');
 		free(buff);
-		if (i < argc - 1)
-			write(1, "\n", 1);
 		i++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	char *default_args[2];
-
 	if (argc == 1)
 	{
-		default_args[0] = argv[0];
-		default_args[1] = "map/10x10_1.map";
-		process_files(2, default_args);
+		process_stdin();
 	}
 	else
+	{
 		process_files(argc, argv);
+	}
 	return (0);
 }
