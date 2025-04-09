@@ -39,77 +39,46 @@ int	init_map_info(char *buff, t_map_info *map_info)
 	return (1);
 }
 
-char	*copy_line(char *start, t_map_info map_info)
+int	allocate_memory(t_map_info map_info, t_parse_vars *vars)
 {
-	char	*line;
-	int		i;
-
-	line = malloc(sizeof(char) * (map_info.width + 1));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (i < map_info.width)
+	vars->data_buffer = malloc(sizeof(char) * (map_info.width + 1) 
+			* map_info.lines);
+	if (!vars->data_buffer)
+		return (0);
+	vars->map = malloc(sizeof(char *) * (map_info.lines + 1));
+	if (!vars->map)
 	{
-		if (start[i] != map_info.empty_char && start[i] != map_info.obstacle)
+		free(vars->data_buffer);
+		return (0);
+	}
+	return (1);
+}
+
+char	**parse_map_lines(t_map_info map_info, t_parse_vars *vars)
+{
+	init_parse_variables(vars->str, map_info, vars);
+	while (vars->i < map_info.lines)
+	{
+		vars->map[vars->i] = vars->dest;
+		if (!check_and_copy_line(map_info, vars))
 		{
-			free(line);
+			free(vars->data_buffer);
+			free(vars->map);
 			return (NULL);
 		}
-		line[i] = start[i];
-		i++;
+		update_pointers(map_info, vars);
+		vars->i++;
 	}
-	if (i < map_info.width || start[i] != '\n')
-	{
-		free(line);
-		return (NULL);
-	}
-	line[i] = '\0';
-	return (line);
+	vars->map[vars->i] = NULL;
+	return (vars->map);
 }
 
 char	**parse_map(char *str, t_map_info map_info)
 {
-	int		i;
-	int		j;
-	char	**map;
-	char	*data_buffer;
-	char	*start;
-	char	*dest;
+	t_parse_vars	vars;
 
-	data_buffer = malloc(sizeof(char) * map_info.width * map_info.lines + map_info.lines);
-	if (!data_buffer)
+	vars.str = str;
+	if (!allocate_memory(map_info, &vars))
 		return (NULL);
-	map = malloc(sizeof(char *) * (map_info.lines + 1));
-	if (!map)
-	{
-		free(data_buffer);
-		return (NULL);
-	}
-	start = str + map_info.first_row_index;
-	dest = data_buffer;
-	i = 0;
-	while (i < map_info.lines)
-	{
-		map[i] = dest;
-		j = 0;
-		while (j < map_info.width)
-		{
-			if (start[j] != map_info.empty_char && start[j] != map_info.obstacle)
-			{
-				free(data_buffer);
-				free(map);
-				return (NULL);
-			}
-			dest[j] = start[j];
-			j++;
-		}
-		dest[j] = '\0';
-		dest += map_info.width + 1;
-		start += map_info.width;
-		if (start[0] == '\n')
-			start++;
-		i++;
-	}
-	map[i] = NULL;
-	return (map);
+	return (parse_map_lines(map_info, &vars));
 }
